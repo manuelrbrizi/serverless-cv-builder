@@ -1,9 +1,9 @@
 variable "aws_region" {
-    default = "us-east-1"
+  default = "us-east-1"
 }
 
 variable "website" {
-    default = "mi-pagina-de-cvs-con-terraform"
+  default = "mi-pagina-de-cvs-con-terraform"
 }
 
 data "aws_iam_policy_document" "website" {
@@ -13,7 +13,7 @@ data "aws_iam_policy_document" "website" {
     ]
     principals {
       identifiers = ["*"]
-      type = "AWS"
+      type        = "AWS"
     }
     resources = [
       "arn:aws:s3:::${var.website}/*"
@@ -28,7 +28,7 @@ data "aws_iam_policy_document" "www" {
     ]
     principals {
       identifiers = ["*"]
-      type = "AWS"
+      type        = "AWS"
     }
     resources = [
       "arn:aws:s3:::www.${var.website}/*"
