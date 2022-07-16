@@ -23,7 +23,7 @@ locals {
     lambda_api = {
       name                    = "lambda-api"
       description             = "Api for lambda"
-      invoke_arn              = module.lambda["lambda"].invoke_arn
+      invoke_arn              = module.lambda["main_lambda"].invoke_arn
       api_path                = "{proxy+}"
       api_env_stage_name      = "prod"
       policy                  = data.aws_iam_policy_document.api.json

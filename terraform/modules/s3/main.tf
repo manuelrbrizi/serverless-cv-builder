@@ -1,4 +1,4 @@
-resource "aws_s3_bucket" "bucket" {
+resource "aws_s3_bucket" "this" {
   bucket = var.bucket_name
   acl    = var.acl
   policy = var.policy
@@ -13,7 +13,7 @@ resource "aws_s3_bucket" "bucket" {
   }
 
   dynamic "logging" {
-    for_each = length(var.logging.target_bucket) > 0 ? [1] : []
+    for_each = length(var.logging) > 0 ? (length(var.logging.target_bucket) > 0 ? [1] : []) : []
     content {
       target_bucket = try(var.logging.target_bucket, null)
       target_prefix = try(var.logging.target_prefix, null)
@@ -25,10 +25,10 @@ locals {
   mime_types = jsondecode(file("${path.module}/mime.json"))
 }
 
-resource "aws_s3_object" "file" {
+resource "aws_s3_object" "this" {
   for_each = var.with_files ? fileset(var.files_root, "**") : []
 
-  bucket = aws_s3_bucket.bucket.id
+  bucket = aws_s3_bucket.this.id
 
   key    = each.key
   source = "${var.files_root}/${each.key}"

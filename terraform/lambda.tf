@@ -12,6 +12,7 @@ locals {
       subnet_ids         = [for k, v in module.vpc["vpc"].private_subnets : tostring(v.id)]
       security_group_ids = [module.security_group["lambda_sg"].id]
       vpc_config         = true
+      role               = var.role
     }
   }
 }
@@ -30,4 +31,5 @@ module "lambda" {
   env_vars           = try(each.value.env_vars, {})
   file_path          = try(each.value.file_path, "")
   vpc_config         = try(each.value.vpc_config, false)
+  role               = each.value.role
 }

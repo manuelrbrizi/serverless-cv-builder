@@ -1,19 +1,19 @@
 output "bucket_name" {
-  value = aws_s3_bucket.bucket.bucket
+  value = aws_s3_bucket.this.bucket
 }
 
 output "bucket_id" {
-  value = aws_s3_bucket.bucket.id
+  value = aws_s3_bucket.this.id
 }
 
 output "bucket_objects" {
-  value = aws_s3_object.file
+  value = aws_s3_object.this
 }
 
 output "bucket_domain_name" {
-  value = aws_s3_bucket.bucket.website_endpoint
+  value = aws_s3_bucket.this.website_endpoint
 }
 
 output "arn" {
-  value = aws_s3_bucket.bucket.arn
+  value = aws_s3_bucket.this.arn
 }

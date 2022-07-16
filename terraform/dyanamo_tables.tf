@@ -13,7 +13,6 @@ locals {
   }
 }
 
-
 module "dynamo" {
   source = "./modules/dynamo_table"
 
