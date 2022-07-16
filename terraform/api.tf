@@ -22,8 +22,8 @@ locals {
   apis = {
     lambda_api = {
       name                    = "lambda-api"
-      description             = "Api for lambda"
-      invoke_arn              = module.lambda["lambda"].invoke_arn
+      description             = "Api for Lambda"
+      invoke_arn              = module.lambda["main_lambda"].invoke_arn
       api_path                = "{proxy+}"
       api_env_stage_name      = "prod"
       policy                  = data.aws_iam_policy_document.api.json
@@ -31,6 +31,7 @@ locals {
       authorization           = "NONE"
       integration_http_method = "POST"
       integration_type        = "AWS_PROXY"
+      credentials = var.role
     }
   }
 }
@@ -51,4 +52,5 @@ module "api" {
   http_method             = each.value.http_method
   integration_http_method = each.value.integration_http_method
   integration_type        = each.value.integration_type
+  credentials = each.value.credentials
 }

@@ -13,7 +13,7 @@ resource "aws_s3_bucket" "bucket" {
   }
 
   dynamic "logging" {
-    for_each = length(var.logging.target_bucket) > 0 ? [1] : []
+    for_each = length(var.logging) > 0 ? (length(var.logging.target_bucket) > 0 ? [1] : []) : []
     content {
       target_bucket = try(var.logging.target_bucket, null)
       target_prefix = try(var.logging.target_prefix, null)

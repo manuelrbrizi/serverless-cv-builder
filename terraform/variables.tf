@@ -3,7 +3,7 @@ variable "aws_region" {
 }
 
 variable "website" {
-  default = "mi-pagina-de-cvs-con-terraform"
+  default = "serverless-cv-builder-manu-2022-cloud-inti-capo"
 }
 
 data "archive_file" "lambda" {
@@ -13,5 +13,8 @@ data "archive_file" "lambda" {
   output_path = "${path.module}/../lambda/zip/lambda.zip"
 }
 
-
+variable "role" {
+  type = string
+  default = "arn:aws:iam::811550652178:role/LabRole"
+}
 
