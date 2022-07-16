@@ -27,7 +27,7 @@ locals {
 }
 
 module "vpc" {
-  source          = "./vpc"
+  source          = "./modules/vpc"
   for_each        = local.vpcs
   vpc_name        = each.value.vpc_name
   vpc_cidr        = each.value.vpc_cidr

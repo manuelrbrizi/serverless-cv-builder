@@ -7,5 +7,5 @@ output "www_bucket_domain_name" {
 }
 
 output "api_url" {
-  value = module.api["lambda_api"].domain_name
+  value = module.api["lambda_api"].invoke_url
 }

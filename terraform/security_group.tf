@@ -25,7 +25,7 @@ locals {
 }
 
 module "security_group" {
-  source   = "./security_group"
+  source   = "./modules/security_group"
   for_each = local.security_groups
 
   name          = each.value.name

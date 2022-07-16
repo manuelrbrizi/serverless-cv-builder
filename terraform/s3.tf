@@ -38,8 +38,38 @@ locals {
   }
 }
 
+data "aws_iam_policy_document" "website" {
+  statement {
+    actions = [
+      "s3:GetObject"
+    ]
+    principals {
+      identifiers = ["*"]
+      type        = "AWS"
+    }
+    resources = [
+      "arn:aws:s3:::${var.website}/*"
+    ]
+  }
+}
+
+data "aws_iam_policy_document" "www" {
+  statement {
+    actions = [
+      "s3:GetObject"
+    ]
+    principals {
+      identifiers = ["*"]
+      type        = "AWS"
+    }
+    resources = [
+      "arn:aws:s3:::www.${var.website}/*"
+    ]
+  }
+}
+
 module "s3" {
-  source      = "./s3"
+  source      = "./modules/s3"
   for_each    = local.buckets
   bucket_name = each.value.bucket_name
   acl         = try(each.value.acl, "private")

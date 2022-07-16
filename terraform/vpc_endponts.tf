@@ -9,9 +9,22 @@ locals {
   }
 }
 
+data "aws_iam_policy_document" "dynamodb_endpoint_policy" {
+  statement {
+    effect    = "Allow"
+    actions   = ["dynamodb:*"]
+    resources = ["*"]
+
+    principals {
+      type        = "*"
+      identifiers = ["*"]
+    }
+  }
+}
+
 module "vpc_endpoint" {
   for_each = local.endpoints
-  source   = "./vpc_endpoint"
+  source   = "./modules/vpc_endpoint"
 
   vpc_id          = each.value.vpc_id
   service_name    = each.value.service_name
