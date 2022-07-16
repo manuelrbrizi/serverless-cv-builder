@@ -31,5 +31,9 @@ module "lambda" {
   env_vars           = try(each.value.env_vars, {})
   file_path          = try(each.value.file_path, "")
   vpc_config         = try(each.value.vpc_config, false)
+<<<<<<< HEAD
   role               = each.value.role
+=======
+  role = try(each.value.role, null)
+>>>>>>> 884bb021fc4e6296a2a1588fe42b50fe0584c362
 }
