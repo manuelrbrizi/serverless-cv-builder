@@ -14,7 +14,7 @@ data "archive_file" "lambda" {
 }
 
 variable "role" {
-  type = string
+  type    = string
   default = "arn:aws:iam::811550652178:role/LabRole"
 }
 

@@ -1,4 +1,4 @@
 variable "name" {
-  type = string
+  type        = string
   description = "Name for cognito user pool"
 }
