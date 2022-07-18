@@ -2,26 +2,26 @@ locals {
   # bucket_name = module.s3["website_logs"].bucket_name
   buckets = {
     website_logs = {
-      bucket_name = "${var.website}-site-logs"
+      bucket_name = "log.${var.website}.com"
       acl         = "log-delivery-write"
     }
     website = {
-      bucket_name = "${var.website}"
+      bucket_name = "${var.website}.com"
       acl         = "public-read"
       policy      = data.aws_iam_policy_document.website.json
       website = {
         index_document = "index.html"
-        error_document = "index.html"
+        error_document = "error.html"
       }
       logging = {
-        target_bucket = "${var.website}-site-logs"
+        target_bucket = "log.${var.website}.com"
         target_prefix = "${var.website}/"
       }
       with_files = true
       files_root = "../webapp"
     }
     www_redirect = {
-      bucket_name = "www.${var.website}"
+      bucket_name = "www.${var.website}.com"
       acl         = "public-read"
       policy      = data.aws_iam_policy_document.www.json
 
@@ -48,7 +48,7 @@ data "aws_iam_policy_document" "website" {
       type        = "AWS"
     }
     resources = [
-      "arn:aws:s3:::${var.website}/*"
+      "arn:aws:s3:::${var.website}.com/*"
     ]
   }
 }
@@ -63,7 +63,7 @@ data "aws_iam_policy_document" "www" {
       type        = "AWS"
     }
     resources = [
-      "arn:aws:s3:::www.${var.website}/*"
+      "arn:aws:s3:::www.${var.website}.com/*"
     ]
   }
 }
