@@ -2,9 +2,9 @@ const form = document.getElementById('contactForm');
 form.addEventListener('submit', function(e) {
         e.preventDefault();
         const payload = new FormData(form);
-          fetch('https://9uyxm5giti.execute-api.us-east-1.amazonaws.com/prod', {
+        fetch('https://9uyxm5giti.execute-api.us-east-1.amazonaws.com/prod/users', {
                     method: 'POST',
-                    mode: 'cors',
+                    mode: 'no-cors',
                     body: payload,
                     headers: new Headers({
                                 'Content-Type': 'application/json',

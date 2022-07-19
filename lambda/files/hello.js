@@ -29,12 +29,12 @@ exports.handler = async (event) => {
               "Access-Control-Allow-Origin": "*",
               "Access-Control-Allow-Methods": "*"
             },
-            body: JSON.stringify('Allowed Options'),
+            body: JSON.stringify('Allowed Options: *'),
           }
         }
     if (event.path.includes("/users") && event.httpMethod == "POST"){
       let body = JSON.parse(event.body);
-    
+
       const params = {
         TableName: "user_data",
         Item: {
@@ -43,15 +43,15 @@ exports.handler = async (event) => {
           apellido: body.apellido
         }
       };
-    
+
       try {
         await createItem(params)
           return {
-              stausCode: 201,
+              statusCode: 201,
               headers: {
-                          "Access-Control-Allow-Headers" : "Content-Type",
-                          "Access-Control-Allow-Origin": "*",
-                          "Access-Control-Allow-Methods": "OPTIONS,POST,GET"
+                          "Access-Control-Allow-Headers"    : "*",
+                          "Access-Control-Allow-Origin"     : "*",
+                          "Access-Control-Allow-Methods"    : "*"
               },
               body: 'Successfully created item'
           }
@@ -70,7 +70,15 @@ exports.handler = async (event) => {
     
      try {
         const data = await getItem(params)
-        return { body: JSON.stringify(data) }
+         return {
+             statusCode: 200,
+              headers: {
+                          "Access-Control-Allow-Headers"    : "*",
+                          "Access-Control-Allow-Origin"     : "*",
+                          "Access-Control-Allow-Methods"    : "*"
+              },
+             body: JSON.stringify(data)
+         }
       } catch (err) {
         return { error: err }
       }
