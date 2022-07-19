@@ -31,7 +31,7 @@ locals {
       authorization           = "NONE"
       integration_http_method = "POST"
       integration_type        = "AWS_PROXY"
-      credentials = var.role
+      credentials             = var.role
     }
   }
 }
@@ -52,5 +52,5 @@ module "api" {
   http_method             = each.value.http_method
   integration_http_method = each.value.integration_http_method
   integration_type        = each.value.integration_type
-  credentials = each.value.credentials
+  credentials             = each.value.credentials
 }

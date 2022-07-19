@@ -36,3 +36,8 @@ variable "files_root" {
   type        = string
   default     = ""
 }
+
+variable "template_files" {
+  description = "data template files to upload"
+  type        = list(any)
+}

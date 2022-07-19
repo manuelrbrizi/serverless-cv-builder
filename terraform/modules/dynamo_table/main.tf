@@ -15,4 +15,8 @@ resource "aws_dynamodb_table" "this" {
   server_side_encryption {
     enabled = true
   }
+
+  lifecycle {
+    prevent_destroy = true
+  }
 }
