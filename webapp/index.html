@@ -50,26 +50,26 @@
                                             </div>
                                             <div class="col-md-12">
                                                 <div class="form-group">
-                                                    <label class="label" for="subject">Carreer</label>
-                                                    <input type="text" class="form-control" name="carreer" id="carreer" placeholder="Carreer">
+                                                    <label class="label" for="subject">Career</label>
+                                                    <input type="text" class="form-control" name="career" id="career" placeholder="Career">
                                                 </div>
                                             </div>
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                     <label class="label" for="#">Description</label>
-                                                    <textarea name="message" class="form-control" id="description" cols="30" rows="4" placeholder="Express yourself"></textarea>
+                                                    <textarea name="description" class="form-control" id="description" cols="30" rows="4" placeholder="Express yourself"></textarea>
                                                 </div>
                                             </div>
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                     <label class="label" for="#">Skills</label>
-                                                    <textarea name="message" class="form-control" id="skills" cols="30" rows="4" placeholder="Your skills"></textarea>
+                                                    <textarea name="skills" class="form-control" id="skills" cols="30" rows="4" placeholder="Your skills"></textarea>
                                                 </div>
                                             </div>
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                     <label class="label" for="#">Passions</label>
-                                                    <textarea name="message" class="form-control" id="passions" cols="30" rows="4" placeholder="Your passions"></textarea>
+                                                    <textarea name="passions" class="form-control" id="passions" cols="30" rows="4" placeholder="Your passions"></textarea>
                                                 </div>
                                             </div>
                                             <div class="col-md-12">
@@ -128,24 +128,6 @@
             </div>
         </div>
     </section>
-
-
-    <script>
-        const form = document.getElementById('contactForm');
-        form.addEventListener('submit', function(e) {
-                e.preventDefault();
-                const prePayload = new FormData(form);
-              //to send it as url encoded
-                const payload = new URLSearchParams(prePayload);
-                  fetch('http://httpbin.org/post', {
-                            method: 'POST',
-                            body: payload
-                  })
-                      .then(res => res.json())
-                      .then(data => console.log(data))
-                      .catch(err => console.log(err));
-        })
-    </script>
 
     <script src="js/jquery.min.js"></script>
     <script src="js/popper.js"></script>

@@ -26,7 +26,7 @@ locals {
       policy      = data.aws_iam_policy_document.www.json
 
       website = {
-        redirect_all_requests_to = "http://${var.website}.s3-website-${var.aws_region}.amazonaws.com"
+        redirect_all_requests_to = "http://${var.website}.com.s3-website-${var.aws_region}.amazonaws.com"
       }
     }
     lambda_bucket = {
