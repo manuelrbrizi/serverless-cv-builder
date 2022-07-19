@@ -16,14 +16,6 @@ resource "aws_cloudfront_distribution" "this" {
   comment             = var.comment
   default_root_object = var.default_root_object
 
-  # logging_config {
-  #   include_cookies = false
-  #   bucket          = "mylogs.s3.amazonaws.com"
-  #   prefix          = "myprefix"
-  # }
-
-  # aliases = ["mysite.example.com", "yoursite.example.com"]
-
   default_cache_behavior {
     allowed_methods  = ["DELETE", "GET", "HEAD", "OPTIONS", "PATCH", "POST", "PUT"]
     cached_methods   = ["GET", "HEAD"]
@@ -95,10 +87,6 @@ resource "aws_cloudfront_distribution" "this" {
       restriction_type = "none"
     }
   }
-
-  # tags = {
-  #   Environment = "production"
-  # }
 
   viewer_certificate {
     cloudfront_default_certificate = true

@@ -21,6 +21,17 @@ async function createItem(params){
 }
 
 exports.handler = async (event) => {
+    if (event.httpMethod == "OPTIONS"){
+      return {
+        statusCode: 200,
+        headers: {
+          "Access-Control-Allow-Headers" : "*",
+          "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Methods": "*"
+        },
+        body: JSON.stringify('Allowed Options'),
+      }
+    }
     if (event.path.includes("/users") && event.httpMethod == "POST"){
       let body = JSON.parse(event.body);
     

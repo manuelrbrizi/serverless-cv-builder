@@ -25,7 +25,7 @@ locals {
   mime_types = jsondecode(file("${path.module}/mime.json"))
 }
 
-resource "aws_s3_object" "this" {
+resource "aws_s3_object" "files" {
   for_each = var.with_files ? fileset(var.files_root, "**") : []
 
   bucket = aws_s3_bucket.this.id
@@ -33,6 +33,19 @@ resource "aws_s3_object" "this" {
   key    = each.key
   source = "${var.files_root}/${each.key}"
   acl    = try(var.acl, "private")
+
+  etag         = filemd5("${var.files_root}/${each.key}")
+  content_type = lookup(local.mime_types, regex("\\.[^.]+$", each.key), "text/plain")
+}
+
+resource "aws_s3_object" "template_files" {
+  for_each = length(var.template_files) ? var.template_files : []
+
+  bucket = aws_s3_bucket.this.id
+
+  key     = each.key
+  content = each.value.rendered
+  acl     = try(var.acl, "private")
 
   etag         = filemd5("${var.files_root}/${each.key}")
   content_type = lookup(local.mime_types, regex("\\.[^.]+$", each.key), "text/plain")

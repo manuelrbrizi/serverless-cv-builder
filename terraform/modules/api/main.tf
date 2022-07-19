@@ -4,21 +4,6 @@ resource "aws_api_gateway_rest_api" "this" {
   name        = var.name
   description = var.description
   policy      = var.policy
-  #   policy = <<EOF
-  # {
-  #     "Version": "2012-10-17",
-  #     "Statement": [
-  #         {
-  #             "Effect": "Allow",
-  #             "Principal": "*",
-  #             "Action": "execute-api:Invoke",
-  #             "Resource": [
-  #                 "execute-api:/*"
-  #             ]
-  #         }
-  #     ]
-  # }
-  # EOF
 }
 resource "aws_api_gateway_resource" "this" {
   rest_api_id = aws_api_gateway_rest_api.this.id
@@ -38,12 +23,10 @@ resource "aws_api_gateway_integration" "this" {
   resource_id = aws_api_gateway_resource.this.id
   http_method = aws_api_gateway_method.this.http_method
   credentials = var.credentials
-  #   credentials               = "arn:aws:iam::969205814093:role/LabRole"
 
   integration_http_method = var.integration_http_method
   type                    = var.integration_type
-  #   uri                       = aws_lambda_function.lambda_managram_api.invoke_arn
-  uri = var.invoke_arn
+  uri                     = var.invoke_arn
 }
 
 # Unfortunately the proxy resource cannot match an empty path at the root of the API.
@@ -59,7 +42,6 @@ resource "aws_api_gateway_integration" "this_root" {
   rest_api_id = aws_api_gateway_rest_api.this.id
   resource_id = aws_api_gateway_method.this_root.resource_id
   http_method = aws_api_gateway_method.this_root.http_method
-  #   credentials             = "arn:aws:iam::969205814093:role/LabRole"
   credentials = var.credentials
 
   integration_http_method = var.integration_http_method

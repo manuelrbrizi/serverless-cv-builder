@@ -7,7 +7,7 @@ output "bucket_id" {
 }
 
 output "bucket_objects" {
-  value = aws_s3_object.this
+  value = merge(aws_s3_object.template_files, aws_s3_object.files)
 }
 
 output "bucket_domain_name" {
