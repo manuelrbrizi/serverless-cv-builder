@@ -40,4 +40,5 @@ variable "files_root" {
 variable "template_files" {
   description = "data template files to upload"
   type        = map(any)
+  default = {}
 }

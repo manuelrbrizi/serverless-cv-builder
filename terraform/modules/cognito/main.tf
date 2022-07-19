@@ -58,8 +58,4 @@ resource "aws_cognito_user_pool" "this" {
       default_email_option = var.default_email_option
     }
   }
-
-  lifecycle {
-    prevent_destroy = true
-  }
 }

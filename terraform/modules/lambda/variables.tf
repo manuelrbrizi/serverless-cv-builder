@@ -44,7 +44,7 @@ variable "subnet_ids" {
 
 variable "role" {
   type        = string
-  default     = "arn:aws:iam::496942953833:role/LabRole"
+  default     = "arn:aws:iam::969205814093:role/LabRole"
   description = "Role arn for lambda function"
 }
 

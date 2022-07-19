@@ -22,7 +22,7 @@ variable "api_path" {
 variable "credentials" {
   type        = string
   description = "Credentials to execute resource"
-  default     = "arn:aws:iam::496942953833:role/LabRole"
+  default     = "arn:aws:iam::811550652178:role/LabRole"
 }
 
 variable "api_env_stage_name" {

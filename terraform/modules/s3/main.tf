@@ -39,7 +39,7 @@ resource "aws_s3_object" "files" {
 }
 
 resource "aws_s3_object" "template_files" {
-  for_each = length(var.template_files) > 0 ? var.template_files : {}
+  for_each = length(var.template_files) > 0? var.template_files : {}
 
   bucket = aws_s3_bucket.this.id
 
