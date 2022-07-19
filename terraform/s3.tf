@@ -88,5 +88,5 @@ module "s3" {
   website        = try(each.value.website, {})
   files_root     = try(each.value.files_root, "")
   with_files     = try(each.value.with_files, false)
-  template_files = each.value.template_files
+  template_files = try(each.value.template_files, {})
 }

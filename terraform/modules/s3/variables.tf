@@ -39,5 +39,5 @@ variable "files_root" {
 
 variable "template_files" {
   description = "data template files to upload"
-  type        = list(any)
+  type        = map(any)
 }
