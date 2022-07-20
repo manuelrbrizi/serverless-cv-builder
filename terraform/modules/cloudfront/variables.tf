@@ -38,7 +38,7 @@ variable "default_cache_behavior" {
 
 variable "ordered_cache_behavior" {
   type = map(object({
-    path_pattern=string
+    path_pattern    = string
     allowed_methods = set(string)
     cached_methods  = set(string)
     forwarded_values = object({

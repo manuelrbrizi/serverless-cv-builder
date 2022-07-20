@@ -45,10 +45,10 @@ data "template_file" "website_files" {
 
   template = file("${path.root}/../webapp/${each.value}")
   vars = {
-    API_ENDPOINT     = module.api["lambda_api"].invoke_url
-    COGNITO_ENDPOINT = module.cognito["main_pool"].endpoint
-    COGNITO_CLIENT_ID = module.cognito["main_pool"].endpoint
-    BUCKET_ENDPOINT  = "${var.website}.com"
+    API_ENDPOINT      = module.api["lambda_api"].invoke_url
+    COGNITO_ENDPOINT  = "${module.cognito["main_pool"].domain}.auth.${var.aws_region}.amazoncognito.com"
+    COGNITO_CLIENT_ID = module.cognito["main_pool"].client_id
+    BUCKET_ENDPOINT   = "${var.website}.com.s3-website-${var.aws_region}.amazonaws.com"
   }
 }
 

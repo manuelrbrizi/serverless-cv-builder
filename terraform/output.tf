@@ -15,5 +15,9 @@ output "cognito_endpoint" {
 }
 
 output "cognito_client_id" {
-  value = "?"
+  value = module.cognito["main_pool"].client_id
+}
+
+output "cognito_domain" {
+  value = module.cognito["main_pool"].domain
 }
