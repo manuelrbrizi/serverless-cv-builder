@@ -51,7 +51,7 @@ exports.handler = async (event) => {
     
       try {
         await createItem(params)
-        return { body: 'Successfully created item' }
+        return { headers: {"Access-Control-Allow-Origin" : "*"}, body: 'Successfully created item' }
       } catch (err) {
         return { error: err }
       }
@@ -67,7 +67,7 @@ exports.handler = async (event) => {
     
      try {
         const data = await getItem(params)
-        return { body: JSON.stringify(data) }
+        return { headers: {"Access-Control-Allow-Origin" : "*"}, body: JSON.stringify(data) }
       } catch (err) {
         return { error: err }
       }

@@ -15,6 +15,6 @@ form.addEventListener('submit', function(e) {
             passions: document.getElementById("passions").value,
         })
     })
-    .then(function(res){ return res.json(); })
-    .then(function(data){ alert( JSON.stringify( data ) ) })
+    .then(function(res){ window.location.href = "profile.html"; /*return res.json();*/ })
+    //.then(function(data){ alert( JSON.stringify( data ) ) })
 })

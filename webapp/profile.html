@@ -92,12 +92,6 @@
             {{ passions }}
         </script>
         <script type="module" src="https://cdn.jsdelivr.net/gh/zerodevx/zero-md@2/dist/zero-md.min.js" ></script>
-        <script>
-                var template = document.getElementById('template').innerHTML;
-                var params = { name: 'Luke', career: 'Software Engineer', description: 'Super cool', skills: 'I know AWS', passions: 'AWS?' }
-                            //get data from
-              var rendered = Mustache.render(template, { name: 'Luke', carrer: 'Software Engineer', description: 'Super cool', skills: 'I know AWS', passions: 'AWS?' });
-              document.getElementById('target').innerHTML = rendered;
-        </script>
+        <script src="js/profile.js"></script>
     </body>
 </html>
