@@ -47,6 +47,7 @@ data "template_file" "website_files" {
   vars = {
     API_ENDPOINT     = module.api["lambda_api"].invoke_url
     COGNITO_ENDPOINT = module.cognito["main_pool"].endpoint
+    COGNITO_CLIENT_ID = module.cognito["main_pool"].endpoint
     BUCKET_ENDPOINT  = "${var.website}.com"
   }
 }
