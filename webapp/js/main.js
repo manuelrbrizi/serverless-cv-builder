@@ -2,7 +2,7 @@ const form = document.getElementById('contactForm');
 form.addEventListener('submit', function(e) {
     e.preventDefault();
 
-    fetch("https://sy1eax617j.execute-api.us-east-1.amazonaws.com/prod/users",
+    fetch("${API_ENDPOINT}/users",
     {
         method: "POST",
         body: JSON.stringify({

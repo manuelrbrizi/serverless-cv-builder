@@ -14,6 +14,6 @@ output "cognito_endpoint" {
   value = module.cognito["main_pool"].endpoint
 }
 
-output "cognito_endpoint" {
-  value = module.cognito["main_pool"].id
+output "cognito_client_id" {
+  value = "?"
 }

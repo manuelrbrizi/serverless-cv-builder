@@ -1,4 +1,4 @@
-fetch("https://sy1eax617j.execute-api.us-east-1.amazonaws.com/prod/users/23")
+fetch("${API_ENDPOINT}/users/23")
 .then(async response => {
     const data = await response.json();
 
