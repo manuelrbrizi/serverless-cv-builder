@@ -43,3 +43,8 @@ variable "default_email_option" {
   type        = string
   description = "default email option for cognito"
 }
+
+variable "domain_name" {
+  type        = string
+  description = "Domain name"
+}

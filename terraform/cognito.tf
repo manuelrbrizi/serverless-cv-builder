@@ -2,6 +2,7 @@ locals {
   cognito_pools = {
     main_pool = {
       name              = "main_user_pool"
+      domain_name       = var.website
       mfa_configuration = "OFF"
       account_recovery_setting = {
         recovery_mechanism = {
@@ -35,4 +36,5 @@ module "cognito" {
   email_sending_account        = each.value.email_sending_account
   password_policy              = each.value.password_policy
   default_email_option         = each.value.default_email_option
+  domain_name                  = each.value.domain_name
 }

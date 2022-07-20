@@ -50,7 +50,6 @@ resource "aws_cognito_user_pool" "this" {
       temporary_password_validity_days = var.password_policy.temporary_password_validity_days
     }
   }
-
   dynamic "verification_message_template" {
     for_each = length(var.default_email_option) != 0 ? [1] : []
 
@@ -58,4 +57,15 @@ resource "aws_cognito_user_pool" "this" {
       default_email_option = var.default_email_option
     }
   }
+}
+
+resource "aws_cognito_user_pool_domain" "this" {
+  domain       = var.domain_name
+  user_pool_id = aws_cognito_user_pool.this.id
+}
+
+resource "aws_cognito_user_pool_client" "this" {
+  name = "${var.name}-client-pool"
+
+  user_pool_id = aws_cognito_user_pool.this.id
 }

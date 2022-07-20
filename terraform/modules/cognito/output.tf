@@ -13,3 +13,7 @@ output "endpoint" {
 output "domain" {
   value = aws_cognito_user_pool.this.domain
 }
+
+output "client_id" {
+  value = aws_cognito_user_pool_client.this.id
+}

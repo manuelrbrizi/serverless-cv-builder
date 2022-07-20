@@ -26,22 +26,22 @@ resource "aws_s3_bucket_website_configuration" "example" {
 
   bucket = aws_s3_bucket.this.bucket
   dynamic "index_document" {
-    for_each = length(lookup(var.website,"index_document","")) > 0 ? {a=1} : {}
-    content{
+    for_each = length(lookup(var.website, "index_document", "")) > 0 ? { a = 1 } : {}
+    content {
       suffix = var.website.index_document
     }
   }
 
   dynamic "error_document" {
-    for_each = length(lookup(var.website,"error_document","")) > 0 ? {a=1} : {}
-    content{
+    for_each = length(lookup(var.website, "error_document", "")) > 0 ? { a = 1 } : {}
+    content {
       key = var.website.error_document
     }
   }
   dynamic "redirect_all_requests_to" {
-    for_each = length(lookup(var.website,"redirect_all_requests_to","")) > 0 ? {a=1} : {}
-    
-    content{
+    for_each = length(lookup(var.website, "redirect_all_requests_to", "")) > 0 ? { a = 1 } : {}
+
+    content {
       host_name = var.website.redirect_all_requests_to
     }
   }
@@ -53,8 +53,8 @@ resource "aws_s3_bucket_acl" "this" {
 }
 
 resource "aws_s3_bucket_logging" "this" {
-  count = length(var.logging) > 0? length(var.logging.target_bucket) > 0? 1: 0 : 0 
-  bucket   = aws_s3_bucket.this.bucket
+  count  = length(var.logging) > 0 ? length(var.logging.target_bucket) > 0 ? 1 : 0 : 0
+  bucket = aws_s3_bucket.this.bucket
 
   target_bucket = var.logging.target_bucket
   target_prefix = var.logging.target_prefix
