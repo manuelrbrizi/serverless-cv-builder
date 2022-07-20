@@ -3,7 +3,7 @@ variable "aws_region" {
 }
 
 variable "website" {
-  default = "serverless-cv-builder-2022-manu-prueba-jaja"
+  default = "serverless-cv-builder-2022-juan"
 }
 
 data "archive_file" "lambda" {
@@ -15,6 +15,6 @@ data "archive_file" "lambda" {
 
 variable "role" {
   type    = string
-  default = "arn:aws:iam::811550652178:role/LabRole"
+  default = "arn:aws:iam::969205814093:role/LabRole"
 }
 

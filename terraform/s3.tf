@@ -1,5 +1,11 @@
 locals {
   buckets = {
+    # lambda_bucket = {
+    #   bucket_name = "${var.website}-lambda-bucket"
+    #   acl         = "private"
+    #   with_files  = true
+    #   files_root  = "${path.root}/../lambda/zip"
+    # }
     website_logs = {
       bucket_name = "log.${var.website}.com"
       acl         = "log-delivery-write"
@@ -16,8 +22,10 @@ locals {
         target_bucket = "log.${var.website}.com"
         target_prefix = "${var.website}/"
       }
-      with_files     = true
-      files_root     = "../webapp"
+      files = {
+        pattern = "{images,css,scss,}/*"
+        path = "${path.root}/../webapp"
+      }
       template_files = data.template_file.website_files
     }
     www_redirect = {
@@ -29,22 +37,17 @@ locals {
         redirect_all_requests_to = "http://${var.website}.com.s3-website-${var.aws_region}.amazonaws.com"
       }
     }
-    lambda_bucket = {
-      bucket_name = "${var.website}-lambda-bucket"
-      acl         = "private"
-      with_files  = true
-      files_root  = "${path.root}/../lambda/zip"
-    }
   }
 }
 
 data "template_file" "website_files" {
-  for_each = fileset("${path.root}/../webbapp", "*.html")
+  for_each = setunion(fileset("${path.root}/../webapp", "{js,.}/*"),fileset("${path.root}/../webapp", "*"))
 
+  template = file("${path.root}/../webapp/${each.value}")
   vars = {
-    # API_ENDPOINT     = module.api["lambda_api"].invoke_url
-    # COGNITO_ENDPOINT = module.cognito["main_pool"].endpoint
-    # BUCKET_ENDPOINT  = "${var.website}.com"
+    API_ENDPOINT     = module.api["lambda_api"].invoke_url
+    COGNITO_ENDPOINT = module.cognito["main_pool"].endpoint
+    BUCKET_ENDPOINT  = "${var.website}.com"
   }
 }
 
@@ -86,7 +89,7 @@ module "s3" {
   policy         = try(each.value.policy, "")
   logging        = try(each.value.logging, {})
   website        = try(each.value.website, {})
-  files_root     = try(each.value.files_root, "")
+  files          = try(each.value.files, {})
   with_files     = try(each.value.with_files, false)
   template_files = try(each.value.template_files, {})
 }

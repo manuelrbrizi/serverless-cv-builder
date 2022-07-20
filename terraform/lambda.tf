@@ -2,8 +2,9 @@ locals {
   lambdas = {
     main_lambda = {
       function_name     = "main-lambda"
-      bucket_id         = module.s3["lambda_bucket"].bucket_id
-      bucket_object_key = module.s3["lambda_bucket"].bucket_objects["lambda.zip"].key
+      # bucket_id         = module.s3["lambda_bucket"].bucket_id
+      # bucket_object_key = module.s3["lambda_bucket"].bucket_objects["lambda.zip"].key
+      filename          = "${path.root}+"
       handler           = "hello.handler"
       runtime           = "nodejs12.x"
       file_path         = "${path.root}/../lambda/zip/lambda.zip"

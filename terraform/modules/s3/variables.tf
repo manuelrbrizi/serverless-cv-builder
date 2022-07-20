@@ -31,10 +31,10 @@ variable "with_files" {
   default     = false
 }
 
-variable "files_root" {
+variable "files" {
   description = "Location of files"
-  type        = string
-  default     = ""
+  type        = map(string)
+  default     = {}
 }
 
 variable "template_files" {

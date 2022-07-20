@@ -1,8 +1,9 @@
 resource "aws_lambda_function" "this" {
   function_name = var.function_name
 
-  s3_bucket = var.bucket_id
-  s3_key    = var.bucket_object_key
+  # s3_bucket = var.bucket_id
+  # s3_key    = var.bucket_object_key
+  filename = var.file_path
 
   memory_size = var.memory_size
   runtime     = var.runtime

@@ -26,15 +26,15 @@ locals {
 }
 
 resource "aws_s3_object" "files" {
-  for_each = var.with_files ? fileset(var.files_root, "**") : []
+  for_each = length(var.files)>0 ? fileset(var.files.path, var.files.pattern) : fileset("/","")
 
   bucket = aws_s3_bucket.this.id
 
   key    = each.key
-  source = "${var.files_root}/${each.key}"
+  source = "${var.files.path}/${each.key}"
   acl    = try(var.acl, "private")
 
-  etag         = filemd5("${var.files_root}/${each.key}")
+  etag         = filemd5("${var.files.path}/${each.key}")
   content_type = lookup(local.mime_types, regex("\\.[^.]+$", each.key), "text/plain")
 }
 
@@ -47,6 +47,6 @@ resource "aws_s3_object" "template_files" {
   content = each.value.rendered
   acl     = try(var.acl, "private")
 
-  etag         = filemd5("${var.files_root}/${each.key}")
+  # etag         = filemd5("${var.files_root}/${each.key}")
   content_type = lookup(local.mime_types, regex("\\.[^.]+$", each.key), "text/plain")
 }

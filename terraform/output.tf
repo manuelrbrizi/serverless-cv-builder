@@ -9,3 +9,11 @@ output "www_bucket_domain_name" {
 output "api_url" {
   value = module.api["lambda_api"].invoke_url
 }
+
+output "cognito_endpoint" {
+  value = module.cognito["main_pool"].endpoint
+}
+
+output "cognito_endpoint" {
+  value = module.cognito["main_pool"].id
+}
