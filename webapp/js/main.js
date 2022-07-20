@@ -1,18 +1,20 @@
 const form = document.getElementById('contactForm');
 form.addEventListener('submit', function(e) {
-        e.preventDefault();
-        const payload = new FormData(form);
-        fetch('https://9uyxm5giti.execute-api.us-east-1.amazonaws.com/prod/users', {
-                    method: 'POST',
-                    mode: 'no-cors',
-                    body: payload,
-                    headers: new Headers({
-                                'Content-Type': 'application/json',
-                                'Access-Control-Allow-Origin': '*',
-                                'Access-Control-Allow-Methods': 'OPTIONS,POST,GET'
-                            })
-          })
-            .then(res => res.json())
-            .then(data => console.log(data))
-            .catch(err => console.log(err));
+    e.preventDefault();
+
+    fetch("https://sy1eax617j.execute-api.us-east-1.amazonaws.com/prod/users",
+    {
+        method: "POST",
+        body: JSON.stringify({
+            userID: 23,
+            name: document.getElementById("name").value,
+            email: document.getElementById("email").value, 
+            career: document.getElementById("career").value,
+            description: document.getElementById("description").value,
+            skills: document.getElementById("skills").value,
+            passions: document.getElementById("passions").value,
+        })
+    })
+    .then(function(res){ return res.json(); })
+    .then(function(data){ alert( JSON.stringify( data ) ) })
 })

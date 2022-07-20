@@ -22,39 +22,36 @@ async function createItem(params){
 
 exports.handler = async (event) => {
     if (event.httpMethod == "OPTIONS"){
-          return {
-            statusCode: 200,
-            headers: {
-              "Access-Control-Allow-Headers" : "*",
-              "Access-Control-Allow-Origin": "*",
-              "Access-Control-Allow-Methods": "*"
-            },
-            body: JSON.stringify('Allowed Options: *'),
-          }
-        }
+      return {
+        statusCode: 200,
+        headers: {
+          "Access-Control-Allow-Headers" : "*",
+          "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Methods": "*"
+        },
+        body: JSON.stringify('Allowed Options'),
+      }
+    }
     if (event.path.includes("/users") && event.httpMethod == "POST"){
+      console.log(event.body);
       let body = JSON.parse(event.body);
-
+    
       const params = {
         TableName: "user_data",
         Item: {
-          userID: 2,
+          userID: body.userID,
           name: body.name,
-          apellido: body.apellido
+          email: body.email,
+          career: body.career,
+          description: body.description,
+          skills: body.skills,
+          passions: body.passions
         }
       };
-
+    
       try {
         await createItem(params)
-          return {
-              statusCode: 201,
-              headers: {
-                          "Access-Control-Allow-Headers"    : "*",
-                          "Access-Control-Allow-Origin"     : "*",
-                          "Access-Control-Allow-Methods"    : "*"
-              },
-              body: 'Successfully created item'
-          }
+        return { body: 'Successfully created item' }
       } catch (err) {
         return { error: err }
       }
@@ -70,15 +67,7 @@ exports.handler = async (event) => {
     
      try {
         const data = await getItem(params)
-         return {
-             statusCode: 200,
-              headers: {
-                          "Access-Control-Allow-Headers"    : "*",
-                          "Access-Control-Allow-Origin"     : "*",
-                          "Access-Control-Allow-Methods"    : "*"
-              },
-             body: JSON.stringify(data)
-         }
+        return { body: JSON.stringify(data) }
       } catch (err) {
         return { error: err }
       }
