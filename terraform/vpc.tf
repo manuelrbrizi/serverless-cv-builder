@@ -21,6 +21,29 @@ locals {
           cidr = "10.0.2.0/24"
           name = "Public subnet 1"
         }
+        public2 = {
+          az   = "${var.aws_region}b"
+          cidr = "10.0.3.0/24"
+          name = "Public subnet 2"
+        }
+      }
+      nat_gateway ={
+        nat_az_a={
+          subnet_key = "public1"
+        }
+        nat_az_b={
+          subnet_key = "public2"
+        }
+      }
+      private_route_table_asociation = {
+        association1={
+          nat = "nat_az_a"
+          subnet = "private1"
+        }
+        association2 = {
+          nat = "nat_az_b"
+          subnet = "private2"
+        }
       }
     }
   }
@@ -33,5 +56,6 @@ module "vpc" {
   vpc_cidr        = each.value.vpc_cidr
   public_subnets  = each.value.public_subnets
   private_subnets = each.value.private_subnets
-
+  nat_gateway = each.value.nat_gateway
+  private_route_table_asociation = each.value.private_route_table_asociation
 }

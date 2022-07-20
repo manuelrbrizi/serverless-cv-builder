@@ -48,6 +48,7 @@ resource "aws_subnet" "private" {
 }
 
 resource "aws_eip" "gw" {
+  for_each = var.nat_gateway
   vpc        = true
   depends_on = [aws_internet_gateway.igw]
 
@@ -57,21 +58,24 @@ resource "aws_eip" "gw" {
 }
 
 resource "aws_nat_gateway" "gw" {
+  for_each      = var.nat_gateway
 
-  subnet_id     = aws_subnet.public[keys(var.public_subnets)[0]].id
-  allocation_id = aws_eip.gw.id
+  subnet_id     = aws_subnet.public[each.value.subnet_key].id
+  allocation_id = aws_eip.gw[each.key].id
+  # connectivity_type = "private"
 
   tags = {
-    Name = "${var.vpc_name}-NAT"
+    Name = "${var.vpc_name}-NAT-${each.value.subnet_key}"
   }
 }
 
 resource "aws_route_table" "private" {
+  for_each = aws_nat_gateway.gw
   vpc_id = aws_vpc.main.id
 
   route {
     cidr_block     = "0.0.0.0/0"
-    nat_gateway_id = aws_nat_gateway.gw.id
+    nat_gateway_id = each.value.id
   }
 
   tags = {
@@ -86,9 +90,13 @@ resource "aws_route_table_association" "public" {
   route_table_id = aws_vpc.main.main_route_table_id
 }
 
-resource "aws_route_table_association" "private1" {
-  for_each = aws_subnet.private
+resource "aws_route_table_association" "private" {
+  depends_on = [
+    aws_route_table.private,
+    aws_subnet.private
+  ]
+  for_each       = var.private_route_table_asociation
 
-  subnet_id      = each.value.id
-  route_table_id = aws_route_table.private.id
+  subnet_id      = aws_subnet.private[each.value.subnet].id
+  route_table_id = aws_route_table.private[each.value.nat].id
 }
