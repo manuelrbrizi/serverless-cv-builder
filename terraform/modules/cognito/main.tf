@@ -60,12 +60,21 @@ resource "aws_cognito_user_pool" "this" {
 }
 
 resource "aws_cognito_user_pool_domain" "this" {
-  domain       = var.domain_name
-  user_pool_id = aws_cognito_user_pool.this.id
+  domain                               = var.domain_name
+  user_pool_id                         = aws_cognito_user_pool.this.id 
 }
 
 resource "aws_cognito_user_pool_client" "this" {
   name = "${var.name}-client-pool"
 
   user_pool_id = aws_cognito_user_pool.this.id
+  allowed_oauth_flows                  = ["code", "implicit", ]
+  allowed_oauth_flows_user_pool_client = true
+  allowed_oauth_scopes                 = ["openid"]
+  explicit_auth_flows = [
+    "ALLOW_CUSTOM_AUTH",
+    "ALLOW_REFRESH_TOKEN_AUTH",
+    "ALLOW_USER_SRP_AUTH"
+  ]
+  supported_identity_providers = ["COGNITO"]
 }
