@@ -24,7 +24,7 @@ locals {
       }
       files = {
         pattern = "{images,css,scss,}/*"
-        path = "${path.root}/../webapp"
+        path    = "${path.root}/../webapp"
       }
       template_files = data.template_file.website_files
     }
@@ -41,7 +41,7 @@ locals {
 }
 
 data "template_file" "website_files" {
-  for_each = setunion(fileset("${path.root}/../webapp", "{js,.}/*"),fileset("${path.root}/../webapp", "*"))
+  for_each = setunion(fileset("${path.root}/../webapp", "{js,.}/*"), fileset("${path.root}/../webapp", "*"))
 
   template = file("${path.root}/../webapp/${each.value}")
   vars = {

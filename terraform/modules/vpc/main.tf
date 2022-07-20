@@ -48,7 +48,7 @@ resource "aws_subnet" "private" {
 }
 
 resource "aws_eip" "gw" {
-  for_each = var.nat_gateway
+  for_each   = var.nat_gateway
   vpc        = true
   depends_on = [aws_internet_gateway.igw]
 
@@ -58,7 +58,7 @@ resource "aws_eip" "gw" {
 }
 
 resource "aws_nat_gateway" "gw" {
-  for_each      = var.nat_gateway
+  for_each = var.nat_gateway
 
   subnet_id     = aws_subnet.public[each.value.subnet_key].id
   allocation_id = aws_eip.gw[each.key].id
@@ -71,7 +71,7 @@ resource "aws_nat_gateway" "gw" {
 
 resource "aws_route_table" "private" {
   for_each = aws_nat_gateway.gw
-  vpc_id = aws_vpc.main.id
+  vpc_id   = aws_vpc.main.id
 
   route {
     cidr_block     = "0.0.0.0/0"
@@ -95,7 +95,7 @@ resource "aws_route_table_association" "private" {
     aws_route_table.private,
     aws_subnet.private
   ]
-  for_each       = var.private_route_table_asociation
+  for_each = var.private_route_table_asociation
 
   subnet_id      = aws_subnet.private[each.value.subnet].id
   route_table_id = aws_route_table.private[each.value.nat].id

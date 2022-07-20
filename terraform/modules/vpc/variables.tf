@@ -20,11 +20,11 @@ variable "public_subnets" {
 }
 
 variable "nat_gateway" {
-  type = map(map(string))
+  type        = map(map(string))
   description = "nat gateways and route tables to be created"
 }
 
 variable "private_route_table_asociation" {
-  type = map(map(string))
+  type        = map(map(string))
   description = "nat route table and subnet association"
 }

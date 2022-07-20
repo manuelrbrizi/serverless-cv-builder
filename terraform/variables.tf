@@ -3,7 +3,7 @@ variable "aws_region" {
 }
 
 variable "website" {
-  default = "serverless-cv-builder-2022-juan"
+  default = "serverless-cv-builder"
 }
 
 data "archive_file" "lambda" {

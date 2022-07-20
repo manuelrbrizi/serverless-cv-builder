@@ -27,21 +27,21 @@ locals {
           name = "Public subnet 2"
         }
       }
-      nat_gateway ={
-        nat_az_a={
+      nat_gateway = {
+        nat_az_a = {
           subnet_key = "public1"
         }
-        nat_az_b={
+        nat_az_b = {
           subnet_key = "public2"
         }
       }
       private_route_table_asociation = {
-        association1={
-          nat = "nat_az_a"
+        association1 = {
+          nat    = "nat_az_a"
           subnet = "private1"
         }
         association2 = {
-          nat = "nat_az_b"
+          nat    = "nat_az_b"
           subnet = "private2"
         }
       }
@@ -50,12 +50,12 @@ locals {
 }
 
 module "vpc" {
-  source          = "./modules/vpc"
-  for_each        = local.vpcs
-  vpc_name        = each.value.vpc_name
-  vpc_cidr        = each.value.vpc_cidr
-  public_subnets  = each.value.public_subnets
-  private_subnets = each.value.private_subnets
-  nat_gateway = each.value.nat_gateway
+  source                         = "./modules/vpc"
+  for_each                       = local.vpcs
+  vpc_name                       = each.value.vpc_name
+  vpc_cidr                       = each.value.vpc_cidr
+  public_subnets                 = each.value.public_subnets
+  private_subnets                = each.value.private_subnets
+  nat_gateway                    = each.value.nat_gateway
   private_route_table_asociation = each.value.private_route_table_asociation
 }
